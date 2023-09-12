@@ -4,9 +4,11 @@ import com.tbs.storesales.domain.entity.Customer;
 import com.tbs.storesales.domain.repositories.CustomerRepository;
 import com.tbs.storesales.domain.services.CustomerService;
 import com.tbs.storesales.resources.CustomerSaveResource;
+import com.tbs.storesales.shared.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -24,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getById(Integer id) {
-        return customerRepository.findById(id).orElseThrow(() -> new RuntimeException("Customer not found!"));
+        return customerRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Customer with id %d not found!", id)));
     }
 
     @Override
@@ -55,8 +57,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void delete(Integer id) {
-        Customer deletedCustomer = getById(id);
+        Optional<Customer> deletedCustomer = customerRepository.findById(id);
 
-        customerRepository.delete(deletedCustomer);
+        if (deletedCustomer.isEmpty()) return;
+
+        customerRepository.delete(deletedCustomer.get());
     }
 }

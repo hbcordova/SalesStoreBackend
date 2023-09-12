@@ -5,6 +5,7 @@ import com.tbs.storesales.domain.services.CustomerService;
 import com.tbs.storesales.mapping.CustomerMapper;
 import com.tbs.storesales.resources.CustomerResource;
 import com.tbs.storesales.resources.CustomerSaveResource;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,13 +34,13 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerResource> save(@RequestBody CustomerSaveResource request) {
+    public ResponseEntity<CustomerResource> save(@Valid @RequestBody CustomerSaveResource request) {
         Customer customerSave = customerMapper.toModel(request);
         return ResponseEntity.ok(customerMapper.toResource(customerService.save(customerSave)));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<CustomerResource> update(@RequestBody CustomerSaveResource request, @PathVariable Integer id) {
+    public ResponseEntity<CustomerResource> update(@Valid @RequestBody CustomerSaveResource request, @PathVariable Integer id) {
         return ResponseEntity.ok(customerMapper.toResource(customerService.update(request, id)));
     }
 
