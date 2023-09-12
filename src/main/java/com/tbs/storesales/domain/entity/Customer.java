@@ -22,6 +22,9 @@ public class Customer {
     private String companyName;
 
     @Column(length = 30, nullable = false)
+    private String contactName;
+
+    @Column(length = 30, nullable = false)
     private String contactTitle;
 
     @Column(length = 255, nullable = false)

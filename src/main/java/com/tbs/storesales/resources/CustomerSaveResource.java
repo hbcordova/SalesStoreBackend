@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class CustomerSaveResource {
     private String companyName;
+    private String contactName;
     private String contactTitle;
     private String address;
     private String city;

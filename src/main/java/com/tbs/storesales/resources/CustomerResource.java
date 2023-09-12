@@ -8,6 +8,7 @@ import lombok.Setter;
 public class CustomerResource {
     private Integer id;
     private String companyName;
+    private String contactName;
     private String contactTitle;
     private String address;
     private String city;

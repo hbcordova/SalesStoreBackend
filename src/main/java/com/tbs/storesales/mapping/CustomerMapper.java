@@ -2,6 +2,7 @@ package com.tbs.storesales.mapping;
 
 import com.tbs.storesales.domain.entity.Customer;
 import com.tbs.storesales.resources.CustomerResource;
+import com.tbs.storesales.resources.CustomerSaveResource;
 import com.tbs.storesales.shared.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,7 +21,7 @@ public class CustomerMapper implements Serializable {
         return modelMapper.mapList(modelList, CustomerResource.class);
     }
 
-    public Customer toModel(CustomerResource resource) {
+    public Customer toModel(CustomerSaveResource resource) {
         return modelMapper.map(resource, Customer.class);
     }
 }
