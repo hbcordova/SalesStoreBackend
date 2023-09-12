@@ -30,7 +30,7 @@ public class CustomerSaveResource {
 
     @NotNull(message = "address is mandatory!")
     @NotBlank(message = "address is mandatory!")
-    @Size(min = 5, max = 30, message = "address must be between 5 and 255 characters!")
+    @Size(min = 5, max = 255, message = "address must be between 5 and 255 characters!")
     private String address;
 
     @NotNull(message = "city is mandatory!")
@@ -53,9 +53,9 @@ public class CustomerSaveResource {
     @Size(min = 3, max = 40, message = "country must be between 3 and 40 characters!")
     private String country;
 
-    @NotNull(message = "postal code is mandatory!")
-    @NotBlank(message = "postal code is mandatory!")
-    @Size(min = 9, max = 9, message = "postal code must be 9 characters!")
+    @NotNull(message = "phone is mandatory!")
+    @NotBlank(message = "phone is mandatory!")
+    @Size(min = 9, max = 9, message = "phone must be 9 characters!")
     private String phone;
 
     @NotNull(message = "fax is mandatory!")
