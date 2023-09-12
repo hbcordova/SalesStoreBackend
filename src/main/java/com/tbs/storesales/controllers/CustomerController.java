@@ -6,10 +6,15 @@ import com.tbs.storesales.mapping.CustomerMapper;
 import com.tbs.storesales.resources.CustomerResource;
 import com.tbs.storesales.resources.CustomerSaveResource;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("api/v1/customers")
@@ -23,9 +28,19 @@ public class CustomerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerResource>> getAll() {
-        List<CustomerResource> resourceList = customerMapper.toResource(customerService.getAll());
-        return ResponseEntity.ok(resourceList);
+    public ResponseEntity<Page<CustomerResource>> getAll(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+
+        // Obtain customer pageable
+        Page<Customer> customerPage = customerService.getAll(pageable);
+
+        // Mapping models to Resource
+        List<CustomerResource> resourceList = customerMapper.toResource(customerPage.getContent());
+
+        // Creating new Pageable with Customer Resource
+        Page<CustomerResource> response = new PageImpl<>(resourceList, pageable, customerPage.getTotalElements());
+
+        // Return response
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("{id}")

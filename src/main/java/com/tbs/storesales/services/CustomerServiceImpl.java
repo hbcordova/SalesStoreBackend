@@ -5,6 +5,8 @@ import com.tbs.storesales.domain.repositories.CustomerRepository;
 import com.tbs.storesales.domain.services.CustomerService;
 import com.tbs.storesales.resources.CustomerSaveResource;
 import com.tbs.storesales.shared.exceptions.NotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +22,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> getAll() {
-        return customerRepository.findAll();
+    public Page<Customer> getAll(Pageable pageable) {
+        return customerRepository.findAll(pageable);
     }
 
     @Override
